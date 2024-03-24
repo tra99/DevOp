@@ -33,9 +33,6 @@ pipeline {
                 sh 'php artisan test'
             }
         }
-        stage('Email Notification'){
-            mail bcc: '', body: 'Hello', cc: '', from: '', replyTo: '', subject: 'Jenkins Job', to: 'chetrafc60@gmail.com'
-        }
     }
     post {
         success {
@@ -43,9 +40,9 @@ pipeline {
             // Add deployment trigger here
         }
         failure {
-            mail to: 'chetrafc60@email.com',
-                 subject: "Build Failed: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
-                 body: "The build of ${env.JOB_NAME} ${env.BUILD_NUMBER} failed. Please check the Jenkins console output for more information."
+            emailext subject: "Build Failed: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
+                     body: "The build of ${env.JOB_NAME} ${env.BUILD_NUMBER} failed. Please check the Jenkins console output for more information.",
+                     to: 'chetrafc60@email.com'
         }
     }
 }
