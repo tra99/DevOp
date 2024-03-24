@@ -33,6 +33,9 @@ pipeline {
                 sh 'php artisan test'
             }
         }
+        stage('Email Notification'){
+            mail bcc: '', body: 'Hello', cc: '', from: '', replyTo: '', subject: 'Jenkins Job', to: 'chetrafc60@gmail.com'
+        }
     }
     post {
         success {
